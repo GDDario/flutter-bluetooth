@@ -1,17 +1,9 @@
 # flutter_bluetooth
 
-A new Flutter project.
+This is a project for studying purposes. The goal is to learn how to interact with Bluetooth using
+some Flutter dependencies.
 
-## Getting Started
+## Objectives
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# flutter-bluetooth
+- [ ] Bluetooth Classic: send and receive files;
+- [ ] Bluetooth BLE: json communication;
