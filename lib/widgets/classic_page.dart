@@ -8,8 +8,16 @@ class ClassicPage extends StatefulWidget {
 }
 
 class _ClassicPageState extends State<ClassicPage> {
+
+
   @override
   Widget build(BuildContext context) {
     return Text("Classic");
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    print("Disposing classic page");
   }
 }

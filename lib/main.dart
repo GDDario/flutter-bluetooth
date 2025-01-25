@@ -1,9 +1,34 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth/widgets/ble_page.dart';
 import 'package:flutter_bluetooth/widgets/classic_page.dart';
+import 'package:flutter_bluetooth/widgets/configuration_page.dart';
+import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
-void main() {
+void main() async {
   runApp(const MyApp());
+  // Some simplest connection :F
+  // try {
+  //   BluetoothConnection connection = await BluetoothConnection.toAddress(null);
+  //   print('Connected to the device');
+  //
+  //   connection.input?.listen((Uint8List data) {
+  //     print('Data incoming: ${ascii.decode(data)}');
+  //     connection.output.add(data); // Sending data
+  //
+  //     if (ascii.decode(data).contains('!')) {
+  //       connection.finish(); // Closing connection
+  //       print('Disconnecting by local host');
+  //     }
+  //   }).onDone(() {
+  //     print('Disconnected by remote request');
+  //   });
+  // }
+  // catch (exception) {
+  //   print('Cannot connect, exception occured');
+  // }
 }
 
 class MyApp extends StatelessWidget {
@@ -45,24 +70,28 @@ class _MyHomePageState extends State<MyHomePage> {
     const items = [
       BottomNavigationBarItem(
         icon: Icon(Icons.home),
-        label: 'Classic',
+        label: "Configuration",
       ),
       BottomNavigationBarItem(
-        icon: Icon(Icons.business),
-        label: 'BLE',
+        icon: Icon(Icons.bluetooth),
+        label: "Classic",
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.bluetooth_connected),
+        label: "BLE",
       ),
     ];
-    const pages = [
-      ClassicPage(),
-      BlePage()
-    ];
+    const pages = [ConfigurationPage(), ClassicPage(), BlePage()];
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: pages[_selectedIndex],
+      body: Padding(
+        padding: EdgeInsets.all(20),
+        child: pages[_selectedIndex],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: items,
         onTap: _onIndexChange,

@@ -9,6 +9,12 @@ class BlePage extends StatefulWidget {
 
 class _BlePageState extends State<BlePage> {
   @override
+  void dispose() {
+    super.dispose();
+    print("Disposing classic page");
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Text("BLE");
   }
