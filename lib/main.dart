@@ -1,34 +1,33 @@
-import 'dart:convert';
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_bluetooth/widgets/ble_page.dart';
 import 'package:flutter_bluetooth/widgets/classic_page.dart';
 import 'package:flutter_bluetooth/widgets/configuration_page.dart';
-import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  if (await FlutterBluePlus.isSupported == false) {
+    print("Bluetooth not supported by this device");
+    return;
+  }
+
+  await checkAndRequestBluetoothPermissions();
+
   runApp(const MyApp());
-  // Some simplest connection :F
-  // try {
-  //   BluetoothConnection connection = await BluetoothConnection.toAddress(null);
-  //   print('Connected to the device');
-  //
-  //   connection.input?.listen((Uint8List data) {
-  //     print('Data incoming: ${ascii.decode(data)}');
-  //     connection.output.add(data); // Sending data
-  //
-  //     if (ascii.decode(data).contains('!')) {
-  //       connection.finish(); // Closing connection
-  //       print('Disconnecting by local host');
-  //     }
-  //   }).onDone(() {
-  //     print('Disconnected by remote request');
-  //   });
-  // }
-  // catch (exception) {
-  //   print('Cannot connect, exception occured');
-  // }
+}
+
+Future<void> checkAndRequestBluetoothPermissions() async {
+  if (await Permission.bluetooth.isDenied) {
+    await Permission.bluetooth.request();
+  }
+  if (await Permission.bluetoothConnect.isDenied) {
+    await Permission.bluetoothConnect.request();
+  }
+  if (await Permission.bluetoothScan.isDenied) {
+    await Permission.bluetoothScan.request();
+  }
 }
 
 class MyApp extends StatelessWidget {
